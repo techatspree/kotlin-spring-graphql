@@ -1,0 +1,21 @@
+input AddressCreate {
+    street: String!
+    zipCode: String!
+    city: String!
+}
+
+input AddressUpdate {
+    street: String
+    zipCode: String
+    city: String
+}
+
+type Address implements AbstractEntity {
+    id: ID!
+    street: String
+    zipCode: String
+    city: String
+}
+
+
+

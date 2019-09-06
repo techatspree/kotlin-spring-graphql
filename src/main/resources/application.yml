@@ -1,0 +1,61 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://${db.host:localhost}:3300/graphql
+    username: graphql
+    password: graphql
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database: mysql
+    properties.hibernate:
+      temp.use_jdbc_metadata_defaults: false
+      jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: create-drop
+      naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+  jackson.deserialization.fail-on-unknown-properties: true
+  servlet.multipart.enabled: true
+
+logging:
+  level.org.springframework: INFO
+  pattern.console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} %X{transaction.id} - %msg%n"
+
+server:
+  port: 8080
+  error.include-stacktrace: never
+  compression.enabled: true
+
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: false
+    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+    exception-handlers-enabled: true
+#    tracing-enabled: true
+#    actuator-metrics: true
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+    # Enable or disable the introspection query. Disabling it puts your server in contravention of the GraphQL
+    # specification and expectations of most clients, so use this option with caution
+    introspection-enabled: true
+
+
+altair:
+  mapping: /altair
+  endpoint:
+    graphql: /graphql
+    subscriptions: /subscriptions
+  subscriptions:
+    timeout: 30
+    reconnect: false
+  enabled: true
+  pageTitle: Altair
+  cdn:
+    enabled: false
+    version: 2.1.7
+  props.resources.variables: graphqls/altair/variables.graphql
+
+
+application.testdata: true

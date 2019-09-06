@@ -1,0 +1,34 @@
+enum PetType {
+    CAT
+    DOG
+    BIRD
+}
+
+type Pet implements AbstractEntity {
+    id: ID!
+    owner: Person!
+    name: String!
+    reverseName: String
+    type: PetType!
+}
+
+extend type Query {
+    pets: [Pet]
+}
+
+extend type Mutation {
+    createPet(pet: PetCreate): Pet!
+    updatePet(petId: ID!, pet: PetUpdate!): Pet!
+}
+
+input PetUpdate {
+    ownerId: ID
+    name: String
+    type: PetType
+}
+
+input PetCreate {
+    ownerId: ID!
+    name: String!
+    type: PetType!
+}

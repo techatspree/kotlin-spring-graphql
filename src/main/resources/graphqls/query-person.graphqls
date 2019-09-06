@@ -1,0 +1,31 @@
+type Person implements AbstractEntity {
+    id: ID!
+    name: String
+    address: Address
+    pets: [Pet!]!
+
+    reverseName: String
+    street: String
+    zipCode: String
+    city: String
+}
+
+extend type Query {
+    persons: [Person!]!
+    person(id: ID!): Person
+}
+
+extend type Mutation {
+    createPerson(person: PersonCreate): Person!
+    updatePerson(personId: ID!, person: PersonUpdate!): Person!
+}
+
+input PersonCreate {
+    name: String!
+    address: AddressCreate!
+}
+
+input PersonUpdate {
+    name: String
+    address: AddressUpdate
+}

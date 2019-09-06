@@ -1,0 +1,10 @@
+type Query {
+}
+
+type Mutation {
+}
+
+interface AbstractEntity {
+    id: ID!
+}
+
