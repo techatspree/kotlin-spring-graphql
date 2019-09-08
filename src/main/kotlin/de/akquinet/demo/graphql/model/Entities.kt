@@ -9,19 +9,15 @@ class PersonEntity(
         @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
         val address: AddressEntity,
         @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "owner")
-        val pets: List<PetEntity> = ArrayList(),
-        @Id @GeneratedValue
-        var id: Long? = null
-)
+        val pets: List<PetEntity> = ArrayList()
+) : AbstractJpaPersistable<Long>()
 
 @Entity
 class AddressEntity(
         var street: String,
         var zipCode: String,
-        var city: String,
-        @Id @GeneratedValue
-        var id: Long? = null
-)
+        var city: String
+) : AbstractJpaPersistable<Long>()
 
 
 @Entity
@@ -31,10 +27,8 @@ class PetEntity(
         var owner: PersonEntity,
         var name: String,
         @Enumerated(EnumType.STRING)
-        var type: PetType,
-        @Id @GeneratedValue
-        var id: Long? = null
-)
+        var type: PetType
+) : AbstractJpaPersistable<Long>()
 
 
 enum class PetType {
